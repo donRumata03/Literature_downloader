@@ -23,7 +23,7 @@ The result of this operation is in file
 As the result, there are nearly 32 GB of different artworks. 
 (There is no guarantee, that they don\`t repeat each other, Moreover, there are really much duplicates)
 
-There are still some things to do:
+## There are still some things to do:
 1) During downloading, there were several errors, for example, with internet connection, not handled properly...
 So, nearly 20 % of all data were lost during the long way mentioned above. 
 I`m going to modify and rerun all that steps with modernized error handling.
