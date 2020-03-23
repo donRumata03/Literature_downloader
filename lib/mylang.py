@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import wikipedia
-from matplotlib import pyplot as plt
 import json
-import wikipedia_worker
+from rating import wikipedia_worker
 import winsound
 import random
 import time
@@ -11,7 +10,8 @@ import os
 import sys
 from typing import *
 import traceback
-from datetime import datetime
+from matplotlib import pyplot as plt
+
 
 class console_color:
    PURPLE = '\033[95m'
@@ -455,9 +455,6 @@ def make_non_existing_dirs(base : str, paths : List[str]):
     print(f"Making {len(real_dirs_to_make)}")
     make_all_dirs(real_dirs_to_make)
 
-
-def recursive_lsdir(base_path: str) -> dict:
-    os.walk
 
 if __name__ == "__main__":
     paty = 'D:\\Projects\\Literature_analyzer\\res\\Books\\Loading\\Арджилли Марчелло\\Читай болван '

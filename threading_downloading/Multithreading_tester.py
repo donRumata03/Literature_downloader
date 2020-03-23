@@ -1,10 +1,4 @@
-from  threading import Thread
-import requests
 import urllib.request
-import shutil
-from mylang import *
-from thread_loader import Artwork_loader
-import thread_loader
 
 # -*- coding: utf-8 -*-
 

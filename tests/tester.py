@@ -1,15 +1,10 @@
-import yandex
-import wikipedia_worker
-import royal_parser
-import rater
-import mylang
-
-
+from royal_parsing import royal_parser
+from lib import mylang
 
 data = "Пушкин, Александр Сергеевич  Александр Сергеевич Пушкин (26 мая [6 июня] 1799, Москва — 29 января [10 февраля] 1837, Санкт-Петербург) — русский поэт, драматург и прозаик, заложивший основы русского реалистического"
 print(mylang.split_words(data)) # {" ", "\t", "\n", "\r", ";", "!", ".", "?", "/", '"', "'", "(", ")", "[", "]", ",", "-", "=", "—"}
 
-authors = royal_parser.load_json_from_file("Authors.json")
+authors = royal_parser.load_json_from_file("../Authors.json")
 print(len(authors))
 print(authors[63097])
 

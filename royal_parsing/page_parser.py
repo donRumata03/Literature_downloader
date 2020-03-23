@@ -1,6 +1,3 @@
-from thread_parser import *
-from royal_parser import *
-
 class page_parse_worker:
     link : str
 

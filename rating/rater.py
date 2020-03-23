@@ -1,10 +1,8 @@
-import json
 import math
 
-import yandex
-import wikipedia_worker
+from rating import wikipedia_worker, yandex
 import wikipedia
-import mylang
+from lib import mylang
 
 good_sites = {"ilibrary.ru" : 10, "litres.ru" : 10, "libfox.ru" : 7, "онлайн-читать.рф" : -1,
               "bookscafe.net" : 7, "classica-online.ru" : 4, "librebook.me" : 6, "litmir.me" : 4, "all-the-books.ru" : 4}

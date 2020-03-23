@@ -1,8 +1,7 @@
-from mylang import *
+from lib.mylang import *
 from threading import Thread
-import royal_parser
-import requests
-from soup_cooker import *
+from royal_parsing import royal_parser
+from lib.soup_cooker import *
 
 all_tasks_performed = 0
 all_tasks_to_do = 0
@@ -186,14 +185,14 @@ def multithread_parse(tasks : list, threads_number : int, worker_type : Type, th
 
 def multithreading_good_load():
     global author_data, start
-    author_data = load_json_from_file("Authors.json")
+    author_data = load_json_from_file("../Authors.json")
     start = datetime.now()
     multithread_parse(author_data, number_of_threads, Parser, Multithread_parser)
 
 
 def multi_parse_artworks():
     global all_tasks_to_do
-    filename = "All_authors_artworks.json"
+    filename = "../All_authors_artworks.json"
     # filename = "Test_artworks.json"
     art_data = load_json_from_file(filename)
     print_good_info("Loaded data to process!")

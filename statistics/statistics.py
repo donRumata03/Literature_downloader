@@ -1,4 +1,4 @@
-from mylang import *
+from lib.mylang import *
 from threading import Thread
 
 class Plotter(Thread):
@@ -9,6 +9,7 @@ class Plotter(Thread):
         self.xs = xs
         self.ys = ys
     def run(self):
+
         plt.plot(self.xs, self.ys)
         plt.show()
 
@@ -30,7 +31,7 @@ def build_num_of_artworks_graph():
 
 
 def make_atr_distribution():
-    data = load_json_from_file("All_authors_artworks.json")
+    data = load_json_from_file("../All_authors_artworks.json")
     plot_xs = []
     plot_ys = []
     max_arts = 0
@@ -131,7 +132,7 @@ def filter_good_authors(all_json : list, edge : int = 3):
     return res
 
 def get_good_auth_jsn():
-    all_json = get_conged_json_file("res/thread_art_parse_results")
+    all_json = get_conged_json_file("../res/thread_art_parse_results")
     # count_all_size_bytes(all_jsn)
     # all_json = load_json_from_file("res/download_test.json")
     return filter_good_authors(all_json)
@@ -140,6 +141,7 @@ def get_good_auth_jsn():
 if __name__ == "__main__":
     # glue_thread_files(full_lsdir("res/thread_art_parse_results"), "All_artworks_data.json")
     # convert_all_files_to_cp1251("res/thread_art_parse_results", "res/art_parse_temp")
-    all_jsn = get_conged_json_file("res/thread_art_parse_results")
+    print(get_life_time("Dfdlkdsfgljk 123423 34 1111 1213"))
+    all_jsn = get_conged_json_file("../res/thread_art_parse_results")
     count_all_size_bytes(all_jsn)
     # show_integral()

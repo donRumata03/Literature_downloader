@@ -1,11 +1,8 @@
 import math
 
-import requests
 from bs4 import BeautifulSoup as bs
 import wikipedia
-import soup_cooker
-import mylang
-
+from lib import mylang, soup_cooker
 
 authoric_words = {
         "автор": 100, "писатель": 100, "поэт": 100, "литератор": 50, "критик": 50,

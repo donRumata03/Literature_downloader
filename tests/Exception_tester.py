@@ -1,7 +1,5 @@
-from mylang import *
-import random
-import royal_parser
-import thread_parser
+from lib.mylang import *
+from threading_downloading import thread_parser
 
 text = json.loads("""
 

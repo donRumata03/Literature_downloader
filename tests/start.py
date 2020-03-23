@@ -1,17 +1,14 @@
-from matplotlib import pyplot as plt
 import requests
 from bs4 import BeautifulSoup as bs
 import json
-from yandex import search
 
-
-res_path = "test_data.txt"
+res_path = "../test_data.json"
 
 start_path = "https://royallib.com/authors-"
 
 
 hrefs = []
-letters = ["a", "b", "v", "g", "d", "e", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "r", "s", "t", "u", "f", "x"]
+letters = ["a", "b", "v", "g", "d", "e", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "r", "s", "t", "u", "f", "x", "c", "ch", ]
 
 test_letters = letters[:1]
 

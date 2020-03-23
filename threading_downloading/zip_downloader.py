@@ -1,4 +1,4 @@
-from mylang import *
+from lib.mylang import *
 import urllib.request
 import shutil
 import os

@@ -1,4 +1,4 @@
-from mylang import *
+from lib.mylang import *
 import urllib.request
 import shutil
 
@@ -6,7 +6,7 @@ adecvatish_number = 10
 
 class Artwork_loader(Thread):
     url = None
-    resultive_path = "res/"
+    resultive_path = "../res/"
     index = None
     def __init__(self, url, index, res_path = "res/"):
         Thread.__init__(self)

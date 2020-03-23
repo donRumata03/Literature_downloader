@@ -1,20 +1,11 @@
-import time
-
-from matplotlib import pyplot as plt
 import requests
 from bs4 import BeautifulSoup as bs
-import soup_cooker
-from soup_cooker import get_property
-import json
-from mylang import Vova
-import rater
-import wikipedia
-import mylang
-import os
-from mylang import *
-import thread_loader
+from lib.soup_cooker import get_property
+from rating import rater
+from lib import mylang, soup_cooker
+from lib.mylang import *
 
-res_path = "test_data.txt"
+res_path = "../test_data.txt"
 start_path = "https://royallib.com/authors-"
 
 letters = ["a", "b", "v", "g", "d", "e", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "r", "s", "t", "u", "f", "x", "c", "ch", "sh", "ssh", "eh", "yu", "ya"]
@@ -200,7 +191,7 @@ def make_good_data(max_recursive_counter = None):
     all_data = []
     recursive_counter = 0
     autor_resave_counter = 0
-    author_data = load_json_from_file("Authors.json")
+    author_data = load_json_from_file("../Authors.json")
 
     for author in author_data:
         print("Author: ", " ".join(author["name"]), " : ")
@@ -263,7 +254,7 @@ def make_best_data(max_recursive_counter = None):
     all_data = []
     recursive_counter = 0
     author_resave_counter = 0
-    author_data = load_json_from_file("Authors.json")
+    author_data = load_json_from_file("../Authors.json")
 
     for author in author_data:
         print("Author: ", " ".join(author["name"]), " : ")
@@ -318,7 +309,7 @@ def make_best_data(max_recursive_counter = None):
 
 
 def get_best_tmp():
-    temps = os.listdir("res/")
+    temps = os.listdir("../res/")
     best_temps = []
     for temp in temps:
         if temp.startswith("Best_authors_temp_") and has_extension(temp, ".json"):
@@ -343,7 +334,7 @@ def continue_making_best_data(max_recursive_counter = None):
     all_data = []
     recursive_counter = 0
     author_resave_counter = 0
-    author_data = load_json_from_file("Authors.json")
+    author_data = load_json_from_file("../Authors.json")
 
     for author in author_data:
         print("Author: ", " ".join(author["name"]), " : ")
@@ -401,7 +392,7 @@ def make_all_good_data():
     all_data = make_good_data(None)
     all_str = json.dumps(all_data, ensure_ascii=False, indent=4)
     print(all_str)
-    file = open("Good_authors.json", "w", encoding="utf-8")
+    file = open("../Good_authors.json", "w", encoding="utf-8")
     file.write(all_str)
     file.close()
 
@@ -443,7 +434,7 @@ def load_authors():
         lst.append({ "name" : author[0], "link" : author[1] })
     string = json.dumps(lst, ensure_ascii=False, indent=4)
     print(string)
-    file = open("Authors.json", "w", encoding="utf8")
+    file = open("../Authors.json", "w", encoding="utf8")
     file.write(string)
     file.close()
 

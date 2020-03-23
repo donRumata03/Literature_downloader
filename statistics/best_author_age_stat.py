@@ -6,7 +6,7 @@ import numpy as np
 def normal(x, mu, m_sigma):
     return 1 / (m_sigma * np.sqrt(2 * np.pi)) * np.exp(-(x - mu) ** 2 / (2 * m_sigma ** 2))
 
-filename = "res/Best_authors_temp_6666.json"
+filename = "../res/Best_author_temp/Best_authors_temp_6666.json"
 
 data = json.loads(open(filename, "r", errors='ignore', encoding="utf-8").read())
 

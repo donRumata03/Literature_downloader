@@ -1,10 +1,8 @@
-import shutil
-from typing import Dict, List, Any, Union
+from statistics.statistics import get_good_auth_jsn
+from threading_downloading.thread_parser import *
+from threading_downloading.thread_pool import *
+from threading_downloading.zip_downloader import download_zip
 
-from thread_parser import *
-from statistics import get_good_auth_jsn
-from thread_pool import *
-from zip_downloader import download_zip
 
 error_counter = 0
 
@@ -42,7 +40,7 @@ def generate_tasks():
     #                                                                   "link" = "..."
     #                                                                }
 
-    base_path = "D:\\Projects\\Literature_analyzer\\res\\Books\\All_books"
+    base_path = "D:\\Literature_data\\All_books"
 
     for author in jsn:
         arts = author["artworks"]
