@@ -1,8 +1,10 @@
 import math
 
+from lib.mylang import *
 from rating import wikipedia_worker, yandex
 import wikipedia
 from lib import mylang
+from rating.wikipedia_worker import clever_life
 
 good_sites = {"ilibrary.ru" : 10, "litres.ru" : 10, "libfox.ru" : 7, "онлайн-читать.рф" : -1,
               "bookscafe.net" : 7, "classica-online.ru" : 4, "librebook.me" : 6, "litmir.me" : 4, "all-the-books.ru" : 4}
@@ -167,7 +169,9 @@ def author_wiki(name : str) -> dict:
     search_result = wikipedia_worker.wiki_search(name)
     # print(search_result)
     if not search_result["status"]:
-        return {}
+        return {
+            "is_famous" : False
+        }
 
     page = wikipedia.page(search_result["title"])
     title = page.title
@@ -176,11 +180,13 @@ def author_wiki(name : str) -> dict:
     quick_table = wikipedia_worker.get_quick_table(html)
 
     if not matches_author_wiki(name.split(" "), title + "  " + summary):
-        return {}
+        return {
+            "is_famous" : False
+        }
 
     authoric_words = wikipedia_worker.get_authoric_words(title + "  " + summary)
     authority = wikipedia_worker.get_authority(description=summary, author_list=name.split(" "))
-    lifetime = mylang.clever_life(page, quick_table)
+    lifetime = clever_life(page, quick_table)
     res["life"] = lifetime
 
     res["raw_title"] = search_result["title"]
@@ -191,7 +197,7 @@ def author_wiki(name : str) -> dict:
     res["additional_properties"] = quick_table
     # TODO: improve
 
-    res["load"] = True
+    res["is_famous"] = True
 
     return res
 
@@ -234,9 +240,9 @@ if __name__ == "__main__":
                "Вася Пупкин", "Геворг Макорян", "Владимир Путин"]
 
     wikipedia.set_lang("ru")
-    for author in authors:
-        print("Trying to find:", author, end = ": \n")
-        mylang.print_json(author_wiki(author))
+    for _author in authors:
+        print("Trying to find:", _author, end = ": \n")
+        print_as_json(author_wiki(_author))
 
         print("\n\n")
         '''

@@ -3,6 +3,8 @@ import math
 from bs4 import BeautifulSoup as bs
 import wikipedia
 from lib import mylang, soup_cooker
+from lib.mylang import print_red
+from lib.mylang import *
 
 authoric_words = {
         "автор": 100, "писатель": 100, "поэт": 100, "литератор": 50, "критик": 50,
@@ -84,14 +86,58 @@ def wiki_search(subject):
     try:
         response = wikipedia.page(search_result)
     except wikipedia.exceptions.DisambiguationError as e:
-        print(e.options)
+        # print_red(e.options)
         return { "status" : False }
     except:
-        print("Some wiki error...")
+        print_red("Some wiki error...")
         return { "status" : False }
 
     return {"status" : True, "title": response.title, "url": response.url}
 
+def clever_life(response : wikipedia.WikipediaPage, quick_table = None):
+    res = {}
+
+    if quick_table is None:
+        quick_table = get_quick_table(response.html())
+    birthday = -1
+    death_day = -1
+    age = -1; alive = True; precision = True
+
+    birthday_words = {"Дата рождения", "Рождение", "Родился", "Родилась", "Рождён"}
+    death_words = {"Дата смерти", "Смерть", "Умер", "Умерла", "Убит"}
+
+    if "Дата рождения" in quick_table:
+        raw_birthday = find_4_digit_nums(quick_table["Дата рождения"])
+        if raw_birthday:
+            birthday = raw_birthday[0]
+        if raw_birthday and "Дата смерти" in quick_table:
+            death_day = find_4_digit_nums(quick_table["Дата смерти"])[0]
+            alive = False
+            age = death_day - birthday
+        elif raw_birthday:
+            alive = True
+            age = 2020 - birthday
+
+
+    if birthday == -1:
+        precision = False
+        summary = response.summary
+        bad_data = get_life_time(summary)
+        if "born" in bad_data:
+            birthday = bad_data["born"]
+            if "end" in bad_data:
+                death_day = bad_data["end"]
+                alive = False
+            else:
+                death_day = 2020
+                alive = True
+        else:
+            birthday = random.randint(1900, 2020)
+            death_day = random.randint(birthday, 2500)
+            alive = death_day > 2020
+        age = death_day - birthday
+    res = {"alive" : alive, "birth_day" : birthday, "death_day" : death_day, "age" : age, "precision" : precision}
+    return res
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import wikipedia
 import json
-from rating import wikipedia_worker
+# from rating import wikipedia_worker
 import winsound
 import random
 import time
@@ -28,7 +28,7 @@ class console_color:
 def print_props(something, *props, end="\n"):
     for i in props:
         print(i, end="")
-    print(str(something))
+    print(str(something), end="")
     for i in range(len(props)):
         print(console_color.END, end="")
 
@@ -40,6 +40,28 @@ def print_good_info(*something, end : str = "\n", sep : str = " "):
 
 def print_red(*something, end : str = "\n", sep : str = " "):
     print_props(sep.join(map(str, something)), console_color.RED, console_color.BOLD, end=end)
+
+def to_utf8_json_file(data : object, filename : str):
+    byte_string = json.dumps(data, indent = 4, ensure_ascii = False).encode("utf8")
+    open(filename, "wb").write(byte_string)
+
+def from_utf8_json_file(filename : str):
+    byte_string = open(filename, "rb").read()
+    return json.loads(byte_string.decode("utf8"))
+
+def make_json_from_files(files : List[str]) -> list:
+    res = []
+    for filename in files:
+        res.extend(from_utf8_json_file(filename))
+    return res
+
+
+def congatanate_json_files(files : List[str], res_fname : str):
+    res = make_json_from_files(files)
+    to_utf8_json_file(res, res_fname)
+
+def plot_tuple_graph(data : List[Tuple[int, int]]):
+    plt.plot(*zip(*data))
 
 
 class Vova:
@@ -91,7 +113,7 @@ class Vova:
         self.Vova_negr = Vova()
         return func_result
 
-    def lazy_try_loading(self, internet_function, num, args, delay_sec : float = 5.) -> Optional[Any]:
+    def lazy_try_loading(self, internet_function : Callable, num, args, delay_sec : float = 5.) -> Optional[Any]:
         if self.Vova_negr is None:
             self.Vova_negr = Vova()
         func_result = None
@@ -130,7 +152,9 @@ class Vovalic_thread(Thread):
     def run(self):
         Vova.pronounce_alert()
 
-
+def print_exception(e : Exception):
+    e_info = sys.exc_info()
+    traceback.print_exception(*e_info)
 
 def find_4_digit_nums(string : str) -> list:
     res = []
@@ -215,50 +239,6 @@ def get_life_time(summary : str) -> dict:
         return {"success" : True, "age" : lifetime, "born" : born_date, "end" : end, "alive" : False}
     return { "success": False, "age": None, "born": born_date, "alive" : born_date > 2019 - 60 }
 
-def clever_life(response : wikipedia.WikipediaPage, quick_table = None):
-    res = {}
-
-    if quick_table is None:
-        quick_table = wikipedia_worker.get_quick_table(response.html())
-    birthday = -1
-    death_day = -1
-    age = -1; alive = True; precision = True
-
-    birthday_words = {"Дата рождения", "Рождение", "Родился", "Родилась", "Рождён"}
-    death_words = {"Дата смерти", "Смерть", "Умер", "Умерла", "Убит"}
-
-    if "Дата рождения" in quick_table:
-        raw_birthday = find_4_digit_nums(quick_table["Дата рождения"])
-        if raw_birthday:
-            birthday = raw_birthday[0]
-        if raw_birthday and "Дата смерти" in quick_table:
-            death_day = find_4_digit_nums(quick_table["Дата смерти"])[0]
-            alive = False
-            age = death_day - birthday
-        elif raw_birthday:
-            alive = True
-            age = 2020 - birthday
-
-
-    if birthday == -1:
-        precision = False
-        summary = response.summary
-        bad_data = get_life_time(summary)
-        if "born" in bad_data:
-            birthday = bad_data["born"]
-            if "end" in bad_data:
-                death_day = bad_data["end"]
-                alive = False
-            else:
-                death_day = 2020
-                alive = True
-        else:
-            birthday = random.randint(1900, 2020)
-            death_day = random.randint(birthday, 2500)
-            alive = death_day > 2020
-        age = death_day - birthday
-    res = {"alive" : alive, "birth_day" : birthday, "death_day" : death_day, "age" : age, "precision" : precision}
-    return res
 
 def add_all(dict_to : dict, dict_from : dict) -> None:
     for key in dict_from:
@@ -457,7 +437,8 @@ def make_non_existing_dirs(base : str, paths : List[str]):
 
 
 if __name__ == "__main__":
-    paty = 'D:\\Projects\\Literature_analyzer\\res\\Books\\Loading\\Арджилли Марчелло\\Читай болван '
-    print(paty.find(('Читай болван '.strip())))
-    print_props("Hello, world!", console_color.CYAN, console_color.BOLD, console_color.UNDERLINE)
-    print("Hello!")
+    # paty = 'D:\\Projects\\Literature_analyzer\\res\\Books\\Loading\\Арджилли Марчелло\\Читай болван '
+    # print(paty.find(('Читай болван '.strip())))
+    # print_props("Hello, world!", console_color.CYAN, console_color.BOLD, console_color.UNDERLINE)
+    # print("Hello!")
+    to_utf8_json_file({"выглрвашг" : "dglijdfgil", "олроыл" : ["sd", "dfgd"]}, "author_task_distribution.json")

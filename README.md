@@ -13,7 +13,7 @@ So, there are several steps in it, the next one is always significantly longer, 
 1) Get the list of pages with links to authors. 
 This operation is pretty fast, the result is situated in "res/author_pages.json"
 2) Scrape the links to author pages from the pages of links from the previous step. 
-The result of this operation is in file 
+The result of this operation is in file "res/author_page_links.json"
 3) From each of 86000 authors\` pages: get artwork names and links to their pages. 
 The result of this operation is in file 
 4) Scrape all of the pages of artworks in order to get their sizes, names and links for downloading.

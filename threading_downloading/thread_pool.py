@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 from typing import *
 import threading
@@ -36,27 +36,32 @@ controllers_update_probability : float
 controllers_time_start : datetime
 controllers_last_update_time : datetime = None
 
-controllers_beta = 0.95 # For exponentially moving average
-controllers_current_avr = 0
-
+controllers_prev_times = [] # For averages
+controllers_gate_width : int = 0
 
 class loading_controller:
     @staticmethod
-    def init(target_tasks : int, update_probability : float):
-        global controllers_target_tasks, controllers_update_probability, controllers_time_start
+    def init(target_tasks : int, update_probability : float, gate_width : int = 200):
+        global controllers_target_tasks, controllers_update_probability, controllers_time_start, controllers_gate_width
         controllers_target_tasks = target_tasks
         controllers_update_probability = update_probability
+        controllers_gate_width = gate_width
         controllers_time_start = datetime.now()
 
     @staticmethod
     def update():
-        global controllers_tasks_performed, controllers_current_avr, controllers_last_update_time
+        global controllers_tasks_performed, controllers_last_update_time, controllers_prev_times
         controllers_tasks_performed += 1
         if random.random() < controllers_update_probability:
             current_percent = 100 * controllers_tasks_performed / controllers_target_tasks
             percent_left = 100. - current_percent
             now = datetime.now()
             time_now = (now - controllers_time_start).total_seconds()
+            controllers_prev_times.append(time_now)
+            if len(controllers_prev_times) > controllers_gate_width + 1:
+                prev_moment = controllers_prev_times[-controllers_gate_width]
+                local_speed = (time_now - prev_moment) / controllers_gate_width
+                print("Local speed :", local_speed)
             speed = current_percent / time_now # Percents per second
             # local_speed = 1 / (now - controllers_last_update_time).total_seconds() if controllers_last_update_time is not None else speed
             # print("Local spreed:", local_speed)
@@ -64,10 +69,11 @@ class loading_controller:
             # controllers_last_update_time = now
             # short_term_speed = controller
             time_left_seconds = percent_left / speed
+            time_left_minutes = time_left_seconds / 60
             speed_tasks_per_second = controllers_tasks_performed / time_now
             print(f"Task Controller: {controllers_tasks_performed} tasks performed of {controllers_target_tasks} ({round(current_percent, 4)} %), \t\t\
-            long-term speed: {round(speed_tasks_per_second, 4)} tasks per second\t\t short-term speed: {round(controllers_current_avr, 4)}\
-             time left: {round(time_left_seconds / 60, 4)} minutes")
+            long-term speed: {round(speed_tasks_per_second, 4)} tasks per second\t\t\
+             time left: {round(time_left_minutes, 4)} minutes\t\ttime planning: {now + timedelta(minutes = time_left_minutes)}")
 
 
 

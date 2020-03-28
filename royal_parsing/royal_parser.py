@@ -462,7 +462,7 @@ def load_best_authors_files():
 def get_all_author_links():
     author_names = get_author_names_and_links()
     print(author_names)
-    all_to_file("Test.json", recurson_limit=None)
+    all_to_file("../res/author_task_distribution.json", recurson_limit=None)
     # print(load_authors_from_file("Authors.json"))
     print(get_artwork_data(bs(requests.get(
         "https://royallib.com/book/palama_svyatitel_grigoriy/svt_grigoriy_palama_sto_pyatdesyat_glav.html").text,

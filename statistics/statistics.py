@@ -49,6 +49,29 @@ def make_atr_distribution():
     return distribution
 
 
+def make_author_distribution():
+    data = from_utf8_json_file("../res/author_pages_data.json")
+    cnt = Counter([len(i["artworks"]) for i in data])
+    to_plot_distr = []
+    for i in sorted(cnt):
+        to_plot_distr.append((i, cnt[i]))
+    plot_tuple_graph(to_plot_distr)
+    plt.show()
+
+    print(cnt)
+
+    max_cutting_number = 100
+    res = []
+    for cutting_number in range(max_cutting_number):
+        total_authors = 0
+        for sample in range(cutting_number, len(to_plot_distr)):
+            total_authors += to_plot_distr[sample][1]
+
+        res.append((cutting_number, total_authors))
+
+    plot_tuple_graph(res)
+    plt.show()
+
 def integrate_distribution(num : int, d):
     distribution = d if d is not None else make_atr_distribution()
     res = 0
@@ -141,7 +164,7 @@ def get_good_auth_jsn():
 if __name__ == "__main__":
     # glue_thread_files(full_lsdir("res/thread_art_parse_results"), "All_artworks_data.json")
     # convert_all_files_to_cp1251("res/thread_art_parse_results", "res/art_parse_temp")
-    print(get_life_time("Dfdlkdsfgljk 123423 34 1111 1213"))
-    all_jsn = get_conged_json_file("../res/thread_art_parse_results")
-    count_all_size_bytes(all_jsn)
+    # all_jsn = get_conged_json_file("../res/thread_art_parse_results")
+    # count_all_size_bytes(all_jsn)
     # show_integral()
+    make_author_distribution()
