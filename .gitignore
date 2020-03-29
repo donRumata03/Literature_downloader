@@ -1,5 +1,9 @@
 /res
 *.json
+!wiki_data.json
+!author_page_links.json
+!author_pages.json
+!author_pages_data.json
 /venv
 /\.idea
 /__pycache__
