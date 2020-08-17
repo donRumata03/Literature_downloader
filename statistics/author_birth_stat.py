@@ -64,12 +64,13 @@ print("Min date:", min_date, "from author:", min_author)
 c = Counter(birth_days)
 
 
-for_smoothing = [(i, c[i]) for i in list(c)]
-print(for_smoothing)
-smoothed = smooth_graph(for_smoothing, 0.4, combi_smoothing, 1000)
+for_smoothing = sorted([(i, c[i]) for i in list(c)])
+smoothed = smooth_graph(for_smoothing, 3, combi_smoothing, 1000)
 
-plot_tuple_graph(for_smoothing)
+# plot_tuple_graph(for_smoothing)
+plot_tuple_graph(smoothed)
 plt.show()
+
 
 """
 min_val = min_date - 100

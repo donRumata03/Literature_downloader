@@ -2,6 +2,8 @@ from matplotlib import pyplot as plt
 import json
 import numpy as np
 
+from lib.mylang import plot_tuple_graph
+
 
 def normal(x, mu, m_sigma):
     return 1 / (m_sigma * np.sqrt(2 * np.pi)) * np.exp(-(x - mu) ** 2 / (2 * m_sigma ** 2))
@@ -65,6 +67,9 @@ for author in data:
     for i in range(len(ms)):
         ms[i] += normal(age, i, sigma)
 
-plt.plot(list(range(len(ms))), ms)
+to_plot = [(i, ms[i]) for i in range(len(ms)) if i >= max(min_age - 5, 0) ]
+
+# plt.plot(list(range(len(to_plot))), to_plot)
+plot_tuple_graph(to_plot)
 plt.show()
 

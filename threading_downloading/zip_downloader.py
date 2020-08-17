@@ -22,4 +22,16 @@ def download_zip(link : str, filename : str, temporary_dir : str):
 
 
 if __name__ == '__main__':
-    download_zip("https://royallib.com/get/txt/yatsenko_vladimir/desant_v_nastoyashchee.zip", "res/test/text.txt", "res/temp_test")
+    # download_zip("https://royallib.com/get/txt/yatsenko_vladimir/desant_v_nastoyashchee.zip", "res/test/text.txt", "res/temp_test")
+
+    e = 1.6e-19
+    m_e = 0.9e-30
+
+    k = 9 * 10**9
+    import math
+    mu = 1.26 * 10e-6
+    U = 10_000
+
+    print(k * 4 * math.pi * math.sqrt(m_e) / (mu * math.sqrt(2 * U * e)))
+
+

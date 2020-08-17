@@ -1,9 +1,11 @@
 /res
 *.json
-!wiki_data.json
-!author_page_links.json
-!author_pages.json
-!author_pages_data.json
+
+!results/wiki_data.json
+!results/author_page_links.json
+!results/author_pages.json
+!results/author_pages_data.json
+
 /venv
 /\.idea
 /__pycache__
